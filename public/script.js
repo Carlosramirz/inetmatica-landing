@@ -27,6 +27,7 @@ function applyTranslations(lang) {
     const elements = document.querySelectorAll('[data-translate]');
     const htmlElements = document.querySelectorAll('[data-translate-html]');
     const listElements = document.querySelectorAll('[data-translate-list]');
+    const placeholderElements = document.querySelectorAll('[data-translate-placeholder]');
     
     // Traducir elementos de texto simple
     elements.forEach(element => {
@@ -43,6 +44,15 @@ function applyTranslations(lang) {
         const translation = getNestedTranslation(translations[lang], key);
         if (translation) {
             element.innerHTML = translation;
+        }
+    });
+    
+    // Traducir placeholders
+    placeholderElements.forEach(element => {
+        const key = element.getAttribute('data-translate-placeholder');
+        const translation = getNestedTranslation(translations[lang], key);
+        if (translation) {
+            element.placeholder = translation;
         }
     });
     
@@ -79,49 +89,10 @@ function getNestedTranslation(obj, path) {
 function translateForm(lang) {
     const t = translations[lang];
     
-    // Bootstrap floating labels
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
-    const messageInput = document.getElementById('message');
-    const submitBtn = document.querySelector('.contact-form button[type="submit"]');
+    // No necesitamos hacer nada aquí ya que los elementos con data-translate
+    // se manejan automáticamente en applyTranslations()
     
-    // Update placeholders and labels
-    if (nameInput) {
-        nameInput.placeholder = t.contact.form.name;
-        const nameLabel = document.querySelector('label[for="name"]');
-        if (nameLabel) nameLabel.textContent = t.contact.form.name;
-    }
-    
-    if (emailInput) {
-        emailInput.placeholder = t.contact.form.email;
-        const emailLabel = document.querySelector('label[for="email"]');
-        if (emailLabel) emailLabel.textContent = t.contact.form.email;
-    }
-    
-    if (messageInput) {
-        messageInput.placeholder = t.contact.form.message;
-        const messageLabel = document.querySelector('label[for="message"]');
-        if (messageLabel) messageLabel.textContent = t.contact.form.message;
-    }
-    
-    if (submitBtn) submitBtn.innerHTML = `<i class="fas fa-paper-plane me-2"></i>${t.contact.form.submit}`;
-    
-    // Select options and label
-    const serviceSelect = document.getElementById('service');
-    if (serviceSelect) {
-        const serviceLabel = document.querySelector('label[for="service"]');
-        if (serviceLabel) serviceLabel.textContent = t.contact.form.serviceLabel || 'Tipo de servicio';
-        
-        const options = serviceSelect.querySelectorAll('option');
-        if (options.length >= 4) {
-            options[0].textContent = t.contact.form.serviceOptions.default;
-            options[1].textContent = t.contact.form.serviceOptions.landing;
-            options[2].textContent = t.contact.form.serviceOptions.ecommerce;
-            options[3].textContent = t.contact.form.serviceOptions.website;
-        }
-    }
-    
-    // Update validation messages
+    // Solo actualizamos los mensajes de validación que son dinámicos
     updateValidationMessages(lang);
 }
 
@@ -129,20 +100,9 @@ function translateForm(lang) {
 function updateValidationMessages(lang) {
     const t = translations[lang];
     
-    // Update validation feedback messages
-    const validationMessages = {
-        'name': t.contact.form.validation?.name || 'Por favor ingresa tu nombre.',
-        'email': t.contact.form.validation?.email || 'Por favor ingresa un email válido.',
-        'service': t.contact.form.validation?.service || 'Por favor selecciona un servicio.',
-        'message': t.contact.form.validation?.message || 'Por favor describe tu proyecto.'
-    };
-    
-    Object.keys(validationMessages).forEach(field => {
-        const feedback = document.querySelector(`#${field} + label + .invalid-feedback, #${field} ~ .invalid-feedback`);
-        if (feedback) {
-            feedback.textContent = validationMessages[field];
-        }
-    });
+    // Los mensajes de validación ya se manejan con data-translate
+    // Esta función se mantiene por compatibilidad pero ya no es necesaria
+    // ya que los elementos .invalid-feedback tienen data-translate
 }
 
 // Inicializar idioma

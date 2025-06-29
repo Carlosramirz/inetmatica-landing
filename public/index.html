@@ -330,18 +330,18 @@
                             <div class="row g-3">
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Tu nombre" required>
-                                        <label for="name">Tu nombre</label>
-                                        <div class="invalid-feedback">
+                                        <input type="text" class="form-control" id="name" name="name" data-translate-placeholder="contact.form.name" placeholder="Tu nombre" required>
+                                        <label for="name" data-translate="contact.form.name">Tu nombre</label>
+                                        <div class="invalid-feedback" data-translate="contact.form.validation.name">
                                             Por favor ingresa tu nombre.
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Tu email" required>
-                                        <label for="email">Tu email</label>
-                                        <div class="invalid-feedback">
+                                        <input type="email" class="form-control" id="email" name="email" data-translate-placeholder="contact.form.email" placeholder="Tu email" required>
+                                        <label for="email" data-translate="contact.form.email">Tu email</label>
+                                        <div class="invalid-feedback" data-translate="contact.form.validation.email">
                                             Por favor ingresa un email válido.
                                         </div>
                                     </div>
@@ -349,29 +349,29 @@
                                 <div class="col-12">
                                     <div class="form-floating">
                                         <select class="form-select" id="service" name="service" required>
-                                            <option value="">Selecciona un servicio</option>
-                                            <option value="landing">Landing Page</option>
-                                            <option value="ecommerce">E-commerce</option>
-                                            <option value="website">Sitio Web</option>
+                                            <option value="" data-translate="contact.form.serviceOptions.default">Selecciona un servicio</option>
+                                            <option value="landing" data-translate="contact.form.serviceOptions.landing">Landing Page</option>
+                                            <option value="ecommerce" data-translate="contact.form.serviceOptions.ecommerce">E-commerce</option>
+                                            <option value="website" data-translate="contact.form.serviceOptions.website">Sitio Web</option>
                                         </select>
-                                        <label for="service">Tipo de servicio</label>
-                                        <div class="invalid-feedback">
+                                        <label for="service" data-translate="contact.form.serviceLabel">Tipo de servicio</label>
+                                        <div class="invalid-feedback" data-translate="contact.form.validation.service">
                                             Por favor selecciona un servicio.
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <textarea class="form-control" id="message" name="message" placeholder="Cuéntanos sobre tu proyecto" style="height: 120px" required></textarea>
-                                        <label for="message">Cuéntanos sobre tu proyecto</label>
-                                        <div class="invalid-feedback">
+                                        <textarea class="form-control" id="message" name="message" data-translate-placeholder="contact.form.message" placeholder="Cuéntanos sobre tu proyecto" style="height: 120px" required></textarea>
+                                        <label for="message" data-translate="contact.form.message">Cuéntanos sobre tu proyecto</label>
+                                        <div class="invalid-feedback" data-translate="contact.form.validation.message">
                                             Por favor describe tu proyecto.
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary btn-lg w-100 py-3">
-                                        <i class="fas fa-paper-plane me-2"></i>Enviar Mensaje
+                                        <i class="fas fa-paper-plane me-2"></i><span data-translate="contact.form.submit">Enviar Mensaje</span>
                                     </button>
                                 </div>
                             </div>
