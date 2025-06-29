@@ -71,13 +71,51 @@ ADMIN_EMAIL=inetmatica@gmail.com
 JWT_SECRET=inetmatica_super_secret_key_2024_hostinger_vps_production
 ```
 
-### **Paso 5: Iniciar la Aplicación**
+### **Paso 5: Solucionar problemas de archivos estáticos (CRÍTICO para Linux)**
+
+**⚠️ IMPORTANTE**: En servidores Linux, los archivos CSS/JS pueden no cargarse correctamente. Ejecuta estos comandos:
+
+```bash
+# 1. Ejecutar diagnóstico del sistema
+node diagnose.js
+
+# 2. Corregir permisos de archivos (MUY IMPORTANTE)
+chmod 755 public/
+chmod 644 public/*
+chmod 644 server.js
+chmod 644 package.json
+
+# 3. Verificar que todos los archivos existen
+ls -la public/
+# Debería mostrar: index.html, styles.css, script.js, translations.js, inetmaticapng.png
+
+# 4. Probar que los archivos se sirven correctamente
+node -e "const fs = require('fs'); console.log('CSS existe:', fs.existsSync('public/styles.css'));"
+node -e "const fs = require('fs'); console.log('JS existe:', fs.existsSync('public/script.js'));"
+```
+
+### **Paso 6: Iniciar la Aplicación**
+
+**Opción A: Script automático (RECOMENDADO)**
+```bash
+# Hacer el script ejecutable
+chmod +x start-hostinger.sh
+
+# Ejecutar script que corrige todo automáticamente
+./start-hostinger.sh
+```
+
+**Opción B: Inicio manual**
 ```bash
 # Iniciar con PM2
 pm2 start ecosystem.config.js
 
 # Verificar estado
 pm2 status
+
+# Verificar que los archivos estáticos se sirven correctamente
+curl -I http://localhost:3000/styles.css
+curl -I http://localhost:3000/script.js
 
 # Configurar auto-inicio
 pm2 startup
@@ -217,6 +255,42 @@ which npm
 # Si no están en PATH, crear enlaces
 sudo ln -s /usr/bin/node /usr/local/bin/node
 sudo ln -s /usr/bin/npm /usr/local/bin/npm
+```
+
+### **Error: Página en blanco o CSS/JS no cargan**
+```bash
+# 1. Ejecutar diagnóstico completo
+node diagnose.js
+
+# 2. Verificar permisos (problema más común)
+ls -la public/
+chmod 755 public/
+chmod 644 public/*
+
+# 3. Verificar que el servidor puede acceder a los archivos
+curl http://localhost:3000/styles.css
+curl http://localhost:3000/script.js
+curl http://localhost:3000/translations.js
+
+# 4. Si siguen fallando, reiniciar completamente
+pm2 delete all
+pm2 start ecosystem.config.js
+
+# 5. Verificar logs para errores específicos
+pm2 logs --lines 50
+```
+
+### **Error: 404 en archivos estáticos**
+```bash
+# Verificar ruta completa
+pwd
+ls -la public/
+
+# Verificar que Node.js encuentra los archivos
+node -e "const path = require('path'); console.log('Public path:', path.join(__dirname, 'public'));"
+
+# Verificar Content-Type headers
+curl -I http://localhost:3000/styles.css | grep "Content-Type"
 ```
 
 ### **Error: Emails no llegan**

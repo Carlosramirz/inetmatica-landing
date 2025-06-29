@@ -219,6 +219,32 @@ Para agregar Google Analytics:
 }
 ```
 
+## 🚀 Despliegue en VPS
+
+Para desplegar en tu VPS de Hostinger, sigue la guía detallada en [HOSTINGER-GUIDE.md](HOSTINGER-GUIDE.md).
+
+### ⚠️ Problema común en servidores Linux
+
+Si la página se ve en blanco o los archivos CSS/JS no cargan en el servidor Linux:
+
+```bash
+# Método 1: Usar script automático de inicio (recomendado)
+chmod +x start-hostinger.sh
+./start-hostinger.sh
+
+# Método 2: Ejecutar diagnóstico
+node diagnose.js
+
+# Método 3: Corregir manualmente
+chmod 755 public/
+chmod 644 public/*
+pm2 restart all
+```
+
+### Scripts disponibles para el servidor:
+- `diagnose.js` - Diagnóstico completo del sistema
+- `start-hostinger.sh` - Inicio automático con corrección de permisos
+
 ## 📞 Soporte
 
 Para soporte técnico o personalizaciones adicionales:

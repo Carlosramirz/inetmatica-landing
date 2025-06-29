@@ -11,8 +11,25 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Configuración de CSP ANTES de otros middlewares
+app.use((req, res, next) => {
+    res.setHeader('Content-Security-Policy', 
+        "default-src 'self'; " +
+        "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; " +
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; " +
+        "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; " +
+        "img-src 'self' data: https: blob:; " +
+        "worker-src 'self' blob:; " +
+        "child-src 'self' blob:; " +
+        "connect-src 'self';"
+    );
+    next();
+});
+
 // Middleware de seguridad
-app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy: false // Deshabilitamos el CSP de helmet porque usamos el nuestro
+}));
 app.use(morgan('combined'));
 
 // Configuración de CORS
@@ -26,8 +43,25 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Servir archivos estáticos (tu landing page)
-app.use(express.static(path.join(__dirname, 'public')));
+// Configuración mejorada para servir archivos estáticos (compatible con Linux)
+app.use(express.static(path.join(__dirname, 'public'), {
+    etag: true,
+    lastModified: true,
+    setHeaders: (res, path) => {
+        // Configurar headers específicos según el tipo de archivo
+        if (path.endsWith('.css')) {
+            res.setHeader('Content-Type', 'text/css');
+        } else if (path.endsWith('.js')) {
+            res.setHeader('Content-Type', 'application/javascript');
+        } else if (path.endsWith('.png')) {
+            res.setHeader('Content-Type', 'image/png');
+        } else if (path.endsWith('.jpg') || path.endsWith('.jpeg')) {
+            res.setHeader('Content-Type', 'image/jpeg');
+        }
+        // Cache para archivos estáticos
+        res.setHeader('Cache-Control', 'public, max-age=86400'); // 1 día
+    }
+}));
 
 // Rate limiting - máximo 5 emails por IP cada 15 minutos
 const emailLimiter = rateLimit({
@@ -77,6 +111,23 @@ const contactValidation = [
         .isLength({ min: 10, max: 1000 })
         .withMessage('El mensaje debe tener entre 10 y 1000 caracteres')
 ];
+
+// Rutas específicas para archivos estáticos (para garantizar compatibilidad con Linux)
+app.get('/styles.css', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'styles.css'));
+});
+
+app.get('/script.js', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'script.js'));
+});
+
+app.get('/translations.js', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'translations.js'));
+});
+
+app.get('/inetmaticapng.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'inetmaticapng.png'));
+});
 
 // Ruta principal - servir la landing page
 app.get('/', (req, res) => {
@@ -254,21 +305,6 @@ app.use((error, req, res, next) => {
     });
 });
 
-// Configuración de CSP mejorada
-app.use((req, res, next) => {
-    res.setHeader('Content-Security-Policy', 
-        "default-src 'self'; " +
-        "script-src 'self' 'unsafe-inline'; " +
-        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
-        "font-src 'self' https://fonts.gstatic.com; " +
-        "img-src 'self' data: https:; " +
-        "worker-src 'self' blob:; " +
-        "child-src 'self' blob:; " +
-        "connect-src 'self';"
-    );
-    next();
-});
-
 // Iniciar servidor
 app.listen(PORT, () => {
     console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
@@ -285,4 +321,4 @@ process.on('SIGTERM', () => {
 process.on('SIGINT', () => {
     console.log('🛑 Cerrando servidor...');
     process.exit(0);
-}); 
+});
