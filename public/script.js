@@ -75,24 +75,43 @@ function getNestedTranslation(obj, path) {
     return path.split('.').reduce((current, key) => current && current[key], obj);
 }
 
-// Función para traducir formulario
+// Función para traducir formulario (Bootstrap)
 function translateForm(lang) {
     const t = translations[lang];
     
-    // Placeholders
+    // Bootstrap floating labels
     const nameInput = document.getElementById('name');
     const emailInput = document.getElementById('email');
     const messageInput = document.getElementById('message');
     const submitBtn = document.querySelector('.contact-form button[type="submit"]');
     
-    if (nameInput) nameInput.placeholder = t.contact.form.name;
-    if (emailInput) emailInput.placeholder = t.contact.form.email;
-    if (messageInput) messageInput.placeholder = t.contact.form.message;
-    if (submitBtn) submitBtn.textContent = t.contact.form.submit;
+    // Update placeholders and labels
+    if (nameInput) {
+        nameInput.placeholder = t.contact.form.name;
+        const nameLabel = document.querySelector('label[for="name"]');
+        if (nameLabel) nameLabel.textContent = t.contact.form.name;
+    }
     
-    // Select options
+    if (emailInput) {
+        emailInput.placeholder = t.contact.form.email;
+        const emailLabel = document.querySelector('label[for="email"]');
+        if (emailLabel) emailLabel.textContent = t.contact.form.email;
+    }
+    
+    if (messageInput) {
+        messageInput.placeholder = t.contact.form.message;
+        const messageLabel = document.querySelector('label[for="message"]');
+        if (messageLabel) messageLabel.textContent = t.contact.form.message;
+    }
+    
+    if (submitBtn) submitBtn.innerHTML = `<i class="fas fa-paper-plane me-2"></i>${t.contact.form.submit}`;
+    
+    // Select options and label
     const serviceSelect = document.getElementById('service');
     if (serviceSelect) {
+        const serviceLabel = document.querySelector('label[for="service"]');
+        if (serviceLabel) serviceLabel.textContent = t.contact.form.serviceLabel || 'Tipo de servicio';
+        
         const options = serviceSelect.querySelectorAll('option');
         if (options.length >= 4) {
             options[0].textContent = t.contact.form.serviceOptions.default;
@@ -101,6 +120,29 @@ function translateForm(lang) {
             options[3].textContent = t.contact.form.serviceOptions.website;
         }
     }
+    
+    // Update validation messages
+    updateValidationMessages(lang);
+}
+
+// Función para actualizar mensajes de validación
+function updateValidationMessages(lang) {
+    const t = translations[lang];
+    
+    // Update validation feedback messages
+    const validationMessages = {
+        'name': t.contact.form.validation?.name || 'Por favor ingresa tu nombre.',
+        'email': t.contact.form.validation?.email || 'Por favor ingresa un email válido.',
+        'service': t.contact.form.validation?.service || 'Por favor selecciona un servicio.',
+        'message': t.contact.form.validation?.message || 'Por favor describe tu proyecto.'
+    };
+    
+    Object.keys(validationMessages).forEach(field => {
+        const feedback = document.querySelector(`#${field} + label + .invalid-feedback, #${field} ~ .invalid-feedback`);
+        if (feedback) {
+            feedback.textContent = validationMessages[field];
+        }
+    });
 }
 
 // Inicializar idioma
@@ -114,6 +156,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicializar idioma
     initializeLanguage();
     
+    // Inicializar validación de Bootstrap
+    initializeFormValidation();
+    
     // Event listener para cambio de idioma
     const langToggle = document.getElementById('langToggle');
     if (langToggle) {
@@ -124,42 +169,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Mobile Menu Toggle
-const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
-const body = document.body;
-
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-    body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
-});
-
+// Bootstrap Mobile Menu (auto-handled by Bootstrap)
 // Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-menu a').forEach(link => {
+document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
     link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-        body.style.overflow = '';
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+        if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+            const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                toggle: false
+            });
+            bsCollapse.hide();
+        }
     });
 });
 
-// Close mobile menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-        body.style.overflow = '';
-    }
-});
-
-// Close mobile menu on window resize
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-        body.style.overflow = '';
-    }
+// Additional mobile menu enhancements
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-close navbar on outside click (Bootstrap enhancement)
+    document.addEventListener('click', function(e) {
+        const navbar = document.querySelector('.navbar-collapse');
+        const toggler = document.querySelector('.navbar-toggler');
+        
+        if (navbar && navbar.classList.contains('show') && 
+            !navbar.contains(e.target) && !toggler.contains(e.target)) {
+            const bsCollapse = new bootstrap.Collapse(navbar, {
+                toggle: false
+            });
+            bsCollapse.hide();
+        }
+    });
 });
 
 // Header scroll effect
@@ -188,11 +226,33 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// Bootstrap Form Validation
+function initializeFormValidation() {
+    const forms = document.querySelectorAll('.needs-validation');
+    
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+}
+
 // Form submission handling with backend
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
+        
+        // Bootstrap validation check
+        if (!this.checkValidity()) {
+            e.stopPropagation();
+            this.classList.add('was-validated');
+            return;
+        }
         
         // Get form data
         const formData = new FormData(this);

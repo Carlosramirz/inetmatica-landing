@@ -119,6 +119,7 @@ const translations = {
                 name: "Tu nombre",
                 email: "Tu email", 
                 service: "Selecciona un servicio",
+                serviceLabel: "Tipo de servicio",
                 serviceOptions: {
                     default: "Selecciona un servicio",
                     landing: "Landing Page",
@@ -126,7 +127,13 @@ const translations = {
                     website: "Sitio Web"
                 },
                 message: "Cuéntanos sobre tu proyecto",
-                submit: "Enviar Mensaje"
+                submit: "Enviar Mensaje",
+                validation: {
+                    name: "Por favor ingresa tu nombre.",
+                    email: "Por favor ingresa un email válido.",
+                    service: "Por favor selecciona un servicio.",
+                    message: "Por favor describe tu proyecto."
+                }
             }
         },
         
@@ -264,6 +271,7 @@ const translations = {
                 name: "Your name",
                 email: "Your email",
                 service: "Select a service",
+                serviceLabel: "Service type",
                 serviceOptions: {
                     default: "Select a service",
                     landing: "Landing Page",
@@ -271,7 +279,13 @@ const translations = {
                     website: "Website"
                 },
                 message: "Tell us about your project",
-                submit: "Send Message"
+                submit: "Send Message",
+                validation: {
+                    name: "Please enter your name.",
+                    email: "Please enter a valid email.",
+                    service: "Please select a service.",
+                    message: "Please describe your project."
+                }
             }
         },
         
