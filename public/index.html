@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inetmatica - Desarrollo Web Profesional</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="inetmaticapng.png" alt="Inetmatica Logo" class="logo-image">
+                    <h2 class="logo-text">Inetmatica</h2>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#inicio" data-translate="nav.home">Inicio</a></li>
+                    <li><a href="#servicios" data-translate="nav.services">Servicios</a></li>
+                    <li><a href="#portafolio" data-translate="nav.portfolio">Portafolio</a></li>
+                    <li><a href="#contacto" data-translate="nav.contact">Contacto</a></li>
+                    <li class="language-switcher">
+                        <button id="langToggle" class="lang-btn">
+                            <span class="flag" id="currentFlag">🇪🇸</span>
+                            <span id="currentLang">ES</span>
+                        </button>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title" data-translate-html="hero.title">
+                    Transformamos tus <span class="highlight">ideas</span> en experiencias digitales
+                </h1>
+                <p class="hero-subtitle" data-translate="hero.subtitle">
+                    Creamos páginas web profesionales, landing pages impactantes y tiendas online que convierten visitantes en clientes.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contacto" class="btn btn-primary" data-translate="hero.ctaPrimary">Empezar Proyecto</a>
+                    <a href="#portafolio" class="btn btn-secondary" data-translate="hero.ctaSecondary">Ver Portafolio</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-graphic">
+                    <i class="fas fa-code"></i>
+                    <i class="fas fa-mobile-alt"></i>
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-translate="services.title">Nuestros Servicios</h2>
+                <p data-translate="services.subtitle">Soluciones digitales que impulsan tu negocio</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 data-translate="services.landing.title">Landing Page</h3>
+                    <p data-translate="services.landing.description">Páginas de aterrizaje optimizadas para convertir visitantes en clientes potenciales.</p>
+                    <ul class="service-features" data-translate-list="services.landing.features">
+                        <li>Diseño responsive</li>
+                        <li>Optimización SEO</li>
+                        <li>Formularios de contacto</li>
+                        <li>Integración con redes sociales</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <h3 data-translate="services.ecommerce.title">E-commerce</h3>
+                    <p data-translate="services.ecommerce.description">Tiendas online completas con sistema de pagos y gestión de productos.</p>
+                    <ul class="service-features" data-translate-list="services.ecommerce.features">
+                        <li>Carrito de compras</li>
+                        <li>Catálogo de productos</li>
+                        <li>Pasarelas de pago</li>
+                        <li>Gestión de inventario</li>
+                        <li>Panel administrativo</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 data-translate="services.website.title">Sitio Web</h3>
+                    <p data-translate="services.website.description">Sitios web corporativos profesionales que reflejan la identidad de tu marca.</p>
+                    <ul class="service-features" data-translate-list="services.website.features">
+                        <li>Diseño personalizado</li>
+                        <li>Múltiples páginas</li>
+                        <li>Blog integrado</li>
+                        <li>Mantenimiento incluido</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-content">
+                    <h2 data-translate="features.title">¿Por qué elegir Inetmatica?</h2>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4 data-translate="features.items.0.title">Diseño Moderno</h4>
+                                <p data-translate="features.items.0.description">Interfaces atractivas y funcionales que cautivan a tus visitantes</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4 data-translate="features.items.1.title">Responsive Design</h4>
+                                <p data-translate="features.items.1.description">Perfecto en todos los dispositivos: móvil, tablet y desktop</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4 data-translate="features.items.2.title">SEO Optimizado</h4>
+                                <p data-translate="features.items.2.description">Mejor posicionamiento en buscadores para más visibilidad</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4 data-translate="features.items.3.title">Soporte 24/7</h4>
+                                <p data-translate="features.items.3.description">Estamos aquí para ayudarte en cualquier momento</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-image">
+                    <div class="feature-graphic">
+                        <i class="fas fa-laptop"></i>
+                        <i class="fas fa-mobile-alt"></i>
+                        <i class="fas fa-tablet-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portafolio" class="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-translate="portfolio.title">Nuestro Portafolio</h2>
+                <p data-translate="portfolio.subtitle">Proyectos que hablan por sí mismos</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <div class="portfolio-placeholder">
+                            <i class="fas fa-image"></i>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 data-translate="portfolio.projects.0.title">Landing Page - Restaurante</h3>
+                        <p data-translate="portfolio.projects.0.description">Página de aterrizaje para restaurante con reservas online</p>
+                        <div class="portfolio-tags">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <div class="portfolio-placeholder">
+                            <i class="fas fa-image"></i>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 data-translate="portfolio.projects.1.title">E-commerce - Moda</h3>
+                        <p data-translate="portfolio.projects.1.description">Tienda online completa para marca de ropa</p>
+                        <div class="portfolio-tags">
+                            <span>WordPress</span>
+                            <span>WooCommerce</span>
+                            <span>PHP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <div class="portfolio-placeholder">
+                            <i class="fas fa-image"></i>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 data-translate="portfolio.projects.2.title">Sitio Web Corporativo - Consultoría</h3>
+                        <p data-translate="portfolio.projects.2.description">Sitio web profesional para empresa de consultoría</p>
+                        <div class="portfolio-tags">
+                            <span>React</span>
+                            <span>Node.js</span>
+                            <span>MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-translate="contact.title">¿Listo para empezar tu proyecto?</h2>
+                <p data-translate="contact.subtitle">Contáctanos y transformemos tu idea en realidad</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4 data-translate="contact.info.instagram.title">Instagram</h4>
+                            <p data-translate="contact.info.instagram.handle">@inetmatica</p>
+                            <a href="https://www.instagram.com/inetmatica" target="_blank" data-translate="contact.info.instagram.action">Síguenos</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4 data-translate="contact.info.email.title">Email</h4>
+                            <p data-translate="contact.info.email.address">inetmatica@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Tu email" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="service" name="service" required>
+                                <option value="">Selecciona un servicio</option>
+                                <option value="landing">Landing Page</option>
+                                <option value="ecommerce">E-commerce</option>
+                                <option value="website">Sitio Web</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Cuéntanos sobre tu proyecto" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="inetmaticapng.png" alt="Inetmatica Logo" class="footer-logo-image">
+                        <h3 class="footer-logo-text">Inetmatica</h3>
+                    </div>
+                    <p data-translate="footer.description">Transformando ideas en experiencias digitales excepcionales.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/inetmatica" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4 data-translate="footer.services.title">Servicios</h4>
+                    <ul data-translate-list="footer.services.items">
+                        <li><a href="#servicios">Landing Pages</a></li>
+                        <li><a href="#servicios">E-commerce</a></li>
+                        <li><a href="#servicios">Sitios Web</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 data-translate="footer.links.title">Enlaces</h4>
+                    <ul data-translate-list="footer.links.items">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#portafolio">Portafolio</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-translate="footer.copyright">&copy; 2024 Inetmatica. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="translations.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
